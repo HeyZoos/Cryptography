@@ -1,0 +1,1 @@
+Uses the same key for both [[Encryption]] and [[Decryption]].

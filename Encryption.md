@@ -1,0 +1,1 @@
+Use a [[Key]] to convert [[Plaintext]] into [[Ciphertext]].
