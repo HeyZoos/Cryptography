@@ -2,6 +2,11 @@
 
 - [[#Decode a hex string to ASCII|Decode a hex string to ASCII]]
 
+## Convert a hex char to its decimal number
+
+```rust
+'a'.to_digit(16)  // 10
+```
 ## Decode a hex string to ASCII
 
 1. Given a hex string
