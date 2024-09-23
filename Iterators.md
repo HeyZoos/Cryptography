@@ -3,7 +3,9 @@
 - [[#Scan Iterator|Scan Iterator]]
 - [[#Cycling Iterator|Cycling Iterator]]
 - [[#Encryption using a cycling iterator|Encryption using a cycling iterator]]
-- [[#Implementing a custom iterator|Implementing a custom iterator]]
+- [[#Custom Iterators|Custom Iterators]]
+	- [[#Custom Iterators#Fibonacci Iterator|Fibonacci Iterator]]
+	- [[#Custom Iterators#Prime Number Iterator|Prime Number Iterator]]
 
 ## Scan Iterator
 
@@ -69,7 +71,9 @@ fn encrypt(plaintext: &str, key: &str) -> String {
 }
 ```
 
-## Implementing a custom iterator
+## Custom Iterators
+
+### Fibonacci Iterator 
 
 ```rust
 struct Fib {
@@ -106,4 +110,46 @@ impl Iterator for Fib {
 
 ```rust
 Fib::new().take(10).collect::<Vec<u64>>()
+```
+
+### Prime Number Iterator
+
+This definitely needs a more efficient implementation. I remember there are some tricks related to primality that could be use to improve the `is_prime` function. Also is there any room for caching?
+
+```rust
+struct PrimeIterator {  
+    current: u64,  
+}  
+  
+impl PrimeIterator {  
+    fn new() -> Self {  
+        Self { current: 1 }  
+    }  
+    
+    fn is_prime(n: u64) -> bool {  
+        if n < 2 {  
+            return false;  
+        }
+                
+        for i in 2..n {  
+            if n % i == 0 {  
+                return false;  
+            }        
+        }
+                
+        true  
+    }  
+}  
+  
+impl Iterator for PrimeIterator {  
+    type Item = u64;  
+  
+    fn next(&mut self) -> Option<Self::Item> {  
+        self.current += 1;  
+        while !PrimeIterator::is_prime(self.current) {  
+            self.current += 1;  
+        }        
+        Some(self.current)  
+    }
+}
 ```
